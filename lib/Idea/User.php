@@ -16,4 +16,8 @@ interface Idea_User
 	 */
 	public function getUsername();
 
+	public function setPassword(Idea_Password $password);
+
+	public function getPassword();
+
 }

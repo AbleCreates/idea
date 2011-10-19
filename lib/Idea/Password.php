@@ -64,7 +64,7 @@ class Idea_Password
 	 * @param Password $that
 	 * @return boolean
 	 */
-	public function equals(Password $that)
+	public function equals(Idea_Password $that)
 	{
 
 		return $this->getHash() == $that->getHash();
@@ -84,6 +84,17 @@ class Idea_Password
 		}
 
 		return $this->_hash;
+
+	}
+
+	/**
+	 * get the salt used in the password hashing
+	 * @return string
+	 */
+	public function getSalt()
+	{
+
+		return $this->_salt;
 
 	}
 
