@@ -19,6 +19,17 @@ class Idea_User_Service
 	}
 
 	/**
+	 * get the user that this service is using
+	 * @return Ou_User
+	 */
+	public function getUser()
+	{
+
+		return $this->_user;
+
+	}
+
+	/**
 	 *
 	 * set a new raw password on the user
 	 * @param string $rawPassword
