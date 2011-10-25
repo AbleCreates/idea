@@ -17,6 +17,10 @@ class Idea_Password_Generator_AblePasswordGenerator
 
 	}
 
+	/**
+	 * (non-PHPdoc)
+	 * @see Idea_Password_Generator::generate()
+	 */
 	public function generate()
 	{
 

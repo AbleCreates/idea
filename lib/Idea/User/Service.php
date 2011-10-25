@@ -37,7 +37,7 @@ class Idea_User_Service
 	public function setRawPassword($rawPassword)
 	{
 
-		$generator = new Idea_Generator_RandomString(16);
+		$generator = Idea_Password_Salt_Generator_Adapter::getGenerator(16);
 		$salt = $generator->generate();
 
 		$password = new Idea_Password(array(

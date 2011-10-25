@@ -19,7 +19,7 @@ class Idea_User_ServiceTest extends PHPUnit_Framework_TestCase
 		$tester = new Idea_Password(array(
 			'raw' => $rawPassword,
 			'salt' => $password->getSalt(),
-			'filter' => new Idea_Filter_Hash(),
+			'hasher' => Idea_Password_Hasher_Adapter::getHasher(),
 		));
 
 		$this->assertTrue($password->equals($tester), 'Password is not ' . $rawPassword);
@@ -41,7 +41,7 @@ class Idea_User_ServiceTest extends PHPUnit_Framework_TestCase
 		$this->assertNotEmpty($password->getSalt(), 'No salt store on password');
 		$this->assertNotEmpty($password->getHash(), 'No hashed password');
 
-		$validator = new Idea_Validate_PasswordStrength();
+		$validator = new Able_Validate_PasswordStrength();
 
 		$this->assertTrue($validator->isValid($rawPassword), 'A weak password was generated');
 

@@ -12,7 +12,7 @@ class Idea_Password
 	/** @var string */
 	protected $_salt;
 
-	/** @var Idea_Password_Hasher */
+	/** @var Idea_Password_Hash_Strategy */
 	protected $_hasher;
 
 	/**
@@ -36,9 +36,22 @@ class Idea_Password
 			$this->_salt = $options['salt'];
 		}
 
-		if (array_key_exists('hasher', $options)) {
-			$this->_hasher = $options['hasher'];
+		$hasher = array_key_exists('hasher', $options)
+			? $options['hasher'] : null;
+
+		$strategy = array_key_exists('strategy', $options)
+			? $options['strategy']
+			: Idea_Password_Hash_Strategy::STRATEGY_BASIC;
+
+		if (!$hasher instanceof Idea_Password_Hasher) {
+
+			throw new InvalidArgumentException(
+				'A password hasher is required'
+			);
+
 		}
+
+		$this->_hasher = Idea_Password_Hash_Strategy::getHasher($strategy, $hasher);
 
 		if (!($this->_raw xor $this->_hash)) {
 
@@ -47,11 +60,12 @@ class Idea_Password
 			);
 
 		} elseif ($this->_raw
-			&& (!$this->_salt || !$this->_hasher instanceof Idea_Password_Hasher)
+			&& (!$this->_salt
+			|| !$this->_hasher instanceof Idea_Password_Hash_Strategy)
 		) {
 
 			throw new InvalidArgumentException(
-				'Both a salt and a hasher are required'
+				'Both a salt and a hash strategy are required'
 			);
 
 		}
@@ -106,11 +120,7 @@ class Idea_Password
 	protected function _generateHash()
 	{
 
-		return $this->_hasher->hash(
-			$this->_hasher->hash(
-				$this->_salt . $this->_hasher->hash($this->_raw)
-			)
-		);
+		return $this->_hasher->hash($this->_raw, $this->_salt);
 
 	}
 
