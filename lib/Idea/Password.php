@@ -12,8 +12,8 @@ class Idea_Password
 	/** @var string */
 	protected $_salt;
 
-	/** @var HashFilter */
-	protected $_filter;
+	/** @var Idea_Password_Hasher */
+	protected $_hasher;
 
 	/**
 	 *
@@ -36,8 +36,8 @@ class Idea_Password
 			$this->_salt = $options['salt'];
 		}
 
-		if (array_key_exists('filter', $options)) {
-			$this->_filter = $options['filter'];
+		if (array_key_exists('hasher', $options)) {
+			$this->_hasher = $options['hasher'];
 		}
 
 		if (!($this->_raw xor $this->_hash)) {
@@ -47,11 +47,11 @@ class Idea_Password
 			);
 
 		} elseif ($this->_raw
-			&& (!$this->_salt || !$this->_filter instanceof Idea_Filter_Hash)
+			&& (!$this->_salt || !$this->_hasher instanceof Idea_Password_Hasher)
 		) {
 
 			throw new InvalidArgumentException(
-				'Both a salt and a filter are required'
+				'Both a salt and a hasher are required'
 			);
 
 		}
@@ -106,9 +106,9 @@ class Idea_Password
 	protected function _generateHash()
 	{
 
-		return $this->_filter->filter(
-			$this->_filter->filter(
-				$this->_salt . $this->_filter->filter($this->_raw)
+		return $this->_hasher->hash(
+			$this->_hasher->hash(
+				$this->_salt . $this->_hasher->hash($this->_raw)
 			)
 		);
 

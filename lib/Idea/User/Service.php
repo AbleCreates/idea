@@ -43,7 +43,7 @@ class Idea_User_Service
 		$password = new Idea_Password(array(
 			'raw' => $rawPassword,
 			'salt' => $salt,
-			'filter' => new Idea_Filter_Hash(),
+			'hasher' => Idea_Password_Hasher_Adapter::getHasher(),
  		));
 
  		$this->_user->setPassword($password);
@@ -59,7 +59,7 @@ class Idea_User_Service
 	{
 
 		// generate new password
-		$generator = new Idea_Generator_Password(array(
+		$generator = Idea_Password_Generator_Adapter::getGenerator(array(
 			'length' => 10,
 			'includeLowerCaseChars' => true,
 			'includeUpperCaseChars' => true,
