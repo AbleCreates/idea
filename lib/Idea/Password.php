@@ -43,15 +43,11 @@ class Idea_Password
 			? $options['strategy']
 			: Idea_Password_Hash_Strategy::STRATEGY_BASIC;
 
-		if (!$hasher instanceof Idea_Password_Hasher) {
+		if ($hasher instanceof Idea_Password_Hasher) {
 
-			throw new InvalidArgumentException(
-				'A password hasher is required'
-			);
+		    $this->_hasher = Idea_Password_Hash_Strategy::getHasher($strategy, $hasher);
 
 		}
-
-		$this->_hasher = Idea_Password_Hash_Strategy::getHasher($strategy, $hasher);
 
 		if (!($this->_raw xor $this->_hash)) {
 
