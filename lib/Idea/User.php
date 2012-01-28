@@ -19,6 +19,13 @@ interface Idea_User
 
 	/**
 	 *
+	 * get a unique email address
+	 * @return string
+	 */
+	public function getEmailAddress();
+
+	/**
+	 *
 	 * set the password for this user
 	 * @param Idea_Password $password
 	 */

@@ -19,8 +19,32 @@ class Idea_User_Service
 	}
 
 	/**
+	 *
+	 * create a new user
+	 */
+	public function create(array $params)
+	{
+
+	    $this->populate($params);
+	    $this->persist();
+
+	}
+
+	/**
+	 *
+	 * update a user
+	 */
+	public function update(array $params)
+	{
+
+	    $this->populate($params);
+	    $this->persist();
+
+	}
+
+	/**
 	 * get the user that this service is using
-	 * @return Ou_User
+	 * @return Idea_User
 	 */
 	public function getUser()
 	{
@@ -73,5 +97,20 @@ class Idea_User_Service
 		return $password;
 
 	}
+
+	/**
+	 *
+	 * persist this user in storage
+	 */
+	protected function persist()
+	{}
+
+	/**
+	 *
+	 * populate this user with values
+	 * @param array $params
+	 */
+	protected function populate(array $params)
+	{}
 
 }
