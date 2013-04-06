@@ -1,0 +1,16 @@
+{
+    "name": "able-creates/idea",
+    "description": "Package of common functionality for Web Applications",
+    "authors": [
+        {
+            "name": "Chris Woodford",
+            "email": "chris@ablecreates.com",
+            "role": "Lead Developer"
+        }
+    ],
+    "autoload": {
+        "psr-0": {
+            "Idea": "lib/"
+        }
+    }
+}
