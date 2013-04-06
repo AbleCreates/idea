@@ -22,7 +22,7 @@ interface Idea_User
 	 * get a unique email address
 	 * @return string
 	 */
-	public function getEmailAddress();
+	//public function getEmailAddress();
 
 	/**
 	 *
